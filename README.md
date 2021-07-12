@@ -33,14 +33,14 @@ npm/yarn run build
 
 ## Structure
 
-📦src
-┣ 📂components
-┃ ┣ 📜MemeCanvas.js 👉 Shows current template
-┃ ┣ 📜MemeInput.js 👉 Renders a form with n inputs where n is equal to the length of the inputs array
-┃ ┣ 📜MemeSelector.js 👉 Gets list of templates from imgflip's API and renders a list of TemplateItem components
-┃ ┗ 📜TemplateItem.js 👉 Renders individual template selector and sets selected template and inputs
-┣ 📜App.js 👉 Main component
-┗ 📜index.js 👉 Mount point
+- 📦src
+- ┣ 📂components
+- ┃ ┣ 📜MemeCanvas.js 👉 Shows current template
+- ┃ ┣ 📜MemeInput.js 👉 Renders a form with n inputs where n is equal to the length of the inputs array
+- ┃ ┣ 📜MemeSelector.js 👉 Gets list of templates from imgflip's API and renders a list of TemplateItem components
+- ┃ ┗ 📜TemplateItem.js 👉 Renders individual template selector and sets selected template and inputs
+- ┣ 📜App.js 👉 Main component
+- ┗ 📜index.js 👉 Mount point
 
 ## Features
 
