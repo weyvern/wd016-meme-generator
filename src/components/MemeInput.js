@@ -1,19 +1,34 @@
-const MemeInput = ({ inputs, setInputs }) => {
-  const handleSubmit = event => {
+const MemeInput = ({ inputs, setInputs, selectedTemplate, setSelectedTemplate, shareMeme }) => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    // Here goes the logic to POST and get the meme
-  };
-  const handleChange = (event, index) => {
-    const value = event.target.value || '';
-    const newInputs = inputs.map((input, i) => {
-      if (index === i) {
-        return value;
-      } else {
-        return input;
-      }
+    const params = new URLSearchParams({
+      template_id: selectedTemplate.id,
+      username: process.env.REACT_APP_IMG_FLIP_USER,
+      password: process.env.REACT_APP_IMG_FLIP_PASSWORD
     });
-    setInputs(newInputs);
+
+    inputs.map((input, i) => params.append(`boxes[${i}][text]`, input));
+
+    const options = {
+      method: 'POST'
+    };
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_IMG_FLIP_API}/caption_image?${params}`,
+        options
+      );
+      const {
+        data: { url }
+      } = await res.json();
+      setSelectedTemplate(prev => ({ ...prev, url }));
+      setInputs(Array(inputs.length).fill(''));
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const handleChange = ({ target: { value } }, index) =>
+    setInputs(inputs.map((input, i) => (index === i ? value : input)));
 
   return (
     <div className='col-md-3'>
@@ -25,6 +40,11 @@ const MemeInput = ({ inputs, setInputs }) => {
         ))}
         <input type='submit' className='btn btn-primary' />
       </form>
+      <div className='mt-3'>
+        <button className='btn btn-warning' onClick={shareMeme}>
+          Save
+        </button>
+      </div>
     </div>
   );
 };
